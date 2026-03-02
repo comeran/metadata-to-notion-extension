@@ -1,0 +1,208 @@
+body {
+  width: 410px;
+  background:
+    radial-gradient(460px 220px at 8% -10%, #eaf0ff 0%, rgba(234, 240, 255, 0) 64%),
+    linear-gradient(180deg, #f7f9fc 0%, #f3f6fb 100%);
+  padding: var(--space-4);
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: var(--line-height-tight);
+}
+
+.popup-panel {
+  margin-top: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid rgba(213, 221, 235, 0.72);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-3);
+}
+
+.meta {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  white-space: pre-wrap;
+}
+
+.btn {
+  width: 100%;
+  min-height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.btn.secondary {
+  background: #fff;
+  border-color: var(--color-border-strong);
+  color: #2f3d5b;
+}
+
+.btn.secondary:hover:not(:disabled) {
+  background: #f8fbff;
+}
+
+.toolbar {
+  margin-top: var(--space-2);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.toolbar .btn {
+  width: 50%;
+  min-height: 32px;
+  font-size: var(--font-size-xs);
+}
+
+.preview {
+  margin-top: var(--space-3);
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-bottom: 1px solid #edf2fa;
+}
+
+.row:hover {
+  background: #f8fbff;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.name {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.to {
+  margin: 0 4px;
+  color: var(--color-text-subtle);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  margin-left: 6px;
+  border-radius: var(--radius-pill);
+  padding: 0 8px;
+  background: var(--color-primary-soft);
+  color: #2f56a7;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.value,
+.field-hint,
+.custom-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.edit,
+select {
+  margin-top: 4px;
+  width: 100%;
+  min-height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-2);
+  background: #fff;
+  color: var(--color-text);
+}
+
+.edit:focus,
+select:focus {
+  outline: 0;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.custom-fields {
+  margin-top: var(--space-3);
+  border: 1px dashed #c9d4ea;
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  background: #fbfcff;
+}
+
+.custom-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.custom-row {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  margin-top: var(--space-2);
+  background: #fff;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.small-btn {
+  min-height: 30px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: #34405e;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.small-btn:hover {
+  background: #f8fbff;
+}
+
+.status {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-xs);
+  white-space: pre-wrap;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--color-text-muted);
+  padding: var(--space-2);
+}

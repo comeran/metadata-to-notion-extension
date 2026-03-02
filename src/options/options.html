@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Metadata to Notion - Settings</title>
+    <link rel="stylesheet" href="../ui/design-tokens.css" />
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <h1 class="page-title">Metadata to Notion 设置</h1>
+
+    <main class="layout">
+      <section class="panel" id="globalSettingsPanel">
+        <h2 class="panel-title">1. 全局设置区</h2>
+        <p class="panel-desc">一次配置 token，供所有类型共用。</p>
+
+        <label class="field-label" for="notionToken">Notion Integration Token</label>
+        <input id="notionToken" class="input" type="password" placeholder="secret_xxx" />
+        <p class="panel-desc">请先在 Notion 把数据库共享给 Integration，再配置各类型 Database ID。</p>
+      </section>
+
+      <section class="panel" id="typeConfigPanel">
+        <h2 class="panel-title">2. 类型配置区</h2>
+        <p class="panel-desc">为电影 / 书籍 / 电视剧 / 游戏分别设置目标库。</p>
+
+        <div id="focusHint" style="display:none"></div>
+        <div id="typeTabs" class="tabs"></div>
+
+        <div class="config-head" style="margin-top:16px;">
+          <div>
+            <span class="type-chip" id="activeTypeChip"></span>
+          </div>
+          <button class="btn secondary" id="fetchSchemaBtn">读取 Notion 字段</button>
+        </div>
+
+        <label class="field-label" for="activeDatabaseId">Database ID</label>
+        <input id="activeDatabaseId" class="input" type="text" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+        <div class="type-status" id="typeStatus"></div>
+      </section>
+
+      <section class="panel" id="mappingPanel">
+        <h2 class="panel-title">3. 字段映射核心区</h2>
+        <p class="panel-desc">按字段启用、类型建议和 Notion 字段映射逐项校准。</p>
+
+        <div class="mapping-wrap">
+          <table class="mapping-table">
+            <colgroup>
+              <col class="c-enable" />
+              <col class="c-field" />
+              <col class="c-preview" />
+              <col class="c-type" />
+              <col class="c-target" />
+              <col class="c-action" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>启用</th>
+                <th>抓取字段</th>
+                <th>扫描值</th>
+                <th>建议类型</th>
+                <th>映射到 Notion 字段</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="mappingBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" id="actionsPanel">
+        <h2 class="panel-title">4. 操作区</h2>
+        <div class="row-inline" style="margin-top: 14px; justify-content: space-between;">
+          <label class="check-wrap" for="autoCreateSelectOption">
+            <input id="autoCreateSelectOption" type="checkbox" />
+            自动创建 select / multi_select 选项
+          </label>
+          <button class="btn primary" id="saveBtn">保存配置</button>
+        </div>
+        <div class="page-status" id="status"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./options.js"></script>
+  </body>
+</html>

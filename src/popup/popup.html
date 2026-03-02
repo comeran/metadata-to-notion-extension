@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Import to Notion</title>
+    <link rel="stylesheet" href="../ui/design-tokens.css" />
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <h1 class="popup-title">导入当前页面到 Notion</h1>
+
+    <div class="popup-panel">
+      <button id="importBtn" class="btn primary" disabled>正在检测页面...</button>
+      <button id="configBtn" class="btn secondary" style="display:none;margin-top:8px;">去配置此类型</button>
+      <div id="meta" class="meta"></div>
+    </div>
+
+    <div class="popup-panel">
+      <div class="toolbar">
+        <button id="selectAllBtn" class="btn secondary" disabled>全选</button>
+        <button id="selectNoneBtn" class="btn secondary" disabled>全不选</button>
+      </div>
+      <div id="preview" class="preview">等待预览...</div>
+
+      <div id="customFields" class="custom-fields">
+        <div class="custom-head">
+          <div style="font-size:13px;font-weight:700;">新增字段</div>
+          <button id="addCustomBtn" class="small-btn" disabled>添加</button>
+        </div>
+        <div class="field-hint">候选字段来自当前 Notion 数据库。多选请用逗号分隔，不要用“/”。</div>
+        <div id="customList"></div>
+      </div>
+    </div>
+
+    <div id="status" class="status"></div>
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>

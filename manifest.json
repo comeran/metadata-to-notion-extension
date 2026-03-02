@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Metadata to Notion",
+  "version": "0.2.0",
+  "description": "Import metadata from Douban/TMDB/IGN pages into Notion database.",
+  "permissions": ["storage", "activeTab", "tabs"],
+  "host_permissions": [
+    "https://movie.douban.com/*",
+    "https://book.douban.com/*",
+    "https://www.themoviedb.org/*",
+    "https://themoviedb.org/*",
+    "https://www.ign.com/*",
+    "https://api.notion.com/*",
+    "https://*.doubanio.com/*",
+    "https://img*.doubanio.com/*",
+    "https://*.douban.com/*",
+    "https://image.tmdb.org/*",
+    "https://assets-prd.ignimgs.com/*",
+    "https://media.ign.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Import to Notion",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "options_page": "src/options/options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://movie.douban.com/subject/*",
+        "https://book.douban.com/subject/*",
+        "https://www.themoviedb.org/tv/*",
+        "https://themoviedb.org/tv/*",
+        "https://www.ign.com/*"
+      ],
+      "js": ["src/content/content-script.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
