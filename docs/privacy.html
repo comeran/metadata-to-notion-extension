@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy - Metadata to Notion</title>
+    <style>
+      :root {
+        --bg: #f6f8fb;
+        --card: #ffffff;
+        --text: #182033;
+        --muted: #5a647c;
+        --border: #e3e9f3;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      main {
+        max-width: 860px;
+        margin: 40px auto;
+        padding: 0 16px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 28px;
+      }
+      h2 {
+        margin-top: 28px;
+        font-size: 20px;
+      }
+      p, li {
+        color: var(--text);
+      }
+      .muted {
+        color: var(--muted);
+      }
+      code {
+        background: #f1f4fa;
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card">
+        <h1>Privacy Policy - Metadata to Notion</h1>
+        <p class="muted">Last updated: 2026-03-02</p>
+
+        <p>
+          Metadata to Notion is a browser extension that helps users import metadata from supported pages
+          (Douban, TMDB, IGN) into user-selected Notion databases.
+        </p>
+
+        <h2>What data is processed</h2>
+        <ul>
+          <li>User configuration:
+            <ul>
+              <li>Notion integration token</li>
+              <li>Notion database IDs</li>
+              <li>Field mapping settings</li>
+            </ul>
+          </li>
+          <li>Page metadata from the active supported page:
+            <ul>
+              <li>Title, rating, tags, summary, release information and similar structured metadata</li>
+              <li>Page URL</li>
+            </ul>
+          </li>
+          <li>Optional image data used for Notion file upload (cover/poster)</li>
+        </ul>
+
+        <h2>Where data is stored</h2>
+        <ul>
+          <li>Extension configuration is stored in <code>chrome.storage.local</code> on the user's device.</li>
+          <li>Database schema cache is stored in <code>chrome.storage.local</code> for faster mapping.</li>
+        </ul>
+
+        <h2>Where data is sent</h2>
+        <ul>
+          <li>
+            Data is sent to Notion API (<code>https://api.notion.com</code>) only when the user requests schema loading
+            or imports content.
+          </li>
+          <li>The extension does not operate a custom backend service.</li>
+        </ul>
+
+        <h2>Data sharing</h2>
+        <ul>
+          <li>No sale of personal data.</li>
+          <li>No analytics SDK or ad network is included.</li>
+          <li>Data is not shared with third parties except Notion API calls initiated by user actions.</li>
+        </ul>
+
+        <h2>User control</h2>
+        <ul>
+          <li>Users can edit or remove configuration in the extension settings.</li>
+          <li>Users can remove the extension at any time to stop all processing.</li>
+          <li>Users can revoke Notion integration token permissions in Notion.</li>
+        </ul>
+
+        <h2>Contact</h2>
+        <p>For support, use the repository/project contact channel where this extension is distributed.</p>
+      </section>
+    </main>
+  </body>
+</html>
