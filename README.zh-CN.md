@@ -37,7 +37,7 @@
 2. 在项目根目录打包：
 
 ```bash
-zip -r metadata-to-notion-v0.2.0.zip manifest.json src assets PRIVACY.md README.md README.zh-CN.md RELEASE_CHECKLIST.md
+zip -r metadata-to-notion-v0.2.1.zip manifest.json src assets PRIVACY.md README.md README.zh-CN.md RELEASE_CHECKLIST.md docs
 ```
 
 3. 上传到 Chrome Web Store 开发者后台。

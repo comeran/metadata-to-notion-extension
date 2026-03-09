@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Metadata to Notion",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Import metadata from Douban/TMDB/IGN pages into Notion database.",
-  "permissions": ["storage", "activeTab", "tabs"],
+  "permissions": ["storage", "activeTab"],
   "host_permissions": [
     "https://movie.douban.com/*",
     "https://book.douban.com/*",

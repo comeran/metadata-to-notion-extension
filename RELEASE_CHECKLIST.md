@@ -6,7 +6,7 @@
 - Build zip from project root (zip root must contain `manifest.json` directly).
 
 ```bash
-zip -r metadata-to-notion-v0.2.0.zip manifest.json src assets PRIVACY.md README.md
+zip -r metadata-to-notion-v0.2.1.zip manifest.json src assets PRIVACY.md README.md README.zh-CN.md RELEASE_CHECKLIST.md docs
 ```
 
 ## 2. Store listing assets
@@ -19,8 +19,8 @@ zip -r metadata-to-notion-v0.2.0.zip manifest.json src assets PRIVACY.md README.
 
 ## 3. Permission disclosure suggestions
 
-- `storage`: store local configuration and schema cache
-- `tabs` / `activeTab`: read active tab metadata and capture visible tab for Douban cover fallback
+- `storage`: store syncable configuration, local token, and schema cache
+- `activeTab`: read metadata from the active supported page and capture the visible tab for Douban cover fallback
 - host permissions for supported sites and Notion API only
 
 ## 4. Pre-submit self-test

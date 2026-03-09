@@ -40,7 +40,7 @@ into Notion databases with configurable field mapping.
 2. Build release zip from repository root:
 
 ```bash
-zip -r metadata-to-notion-v0.2.0.zip manifest.json src assets PRIVACY.md README.md RELEASE_CHECKLIST.md
+zip -r metadata-to-notion-v0.2.1.zip manifest.json src assets PRIVACY.md README.md README.zh-CN.md RELEASE_CHECKLIST.md docs
 ```
 
 3. Upload zip to Chrome Web Store dashboard.
