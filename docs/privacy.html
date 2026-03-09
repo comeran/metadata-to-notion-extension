@@ -82,8 +82,14 @@
 
         <h2>Where data is stored</h2>
         <ul>
-          <li>Extension configuration is stored in <code>chrome.storage.local</code> on the user's device.</li>
-          <li>Database schema cache is stored in <code>chrome.storage.local</code> for faster mapping.</li>
+          <li>
+            Syncable configuration is stored in <code>chrome.storage.sync</code>:
+            Notion database IDs, field mapping settings, and import options.
+          </li>
+          <li>
+            Device-local configuration is stored in <code>chrome.storage.local</code>:
+            Notion integration token, database schema cache, and temporary scan state.
+          </li>
         </ul>
 
         <h2>Where data is sent</h2>

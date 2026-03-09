@@ -1,7 +1,9 @@
 import { SOURCE_FIELDS_BY_TYPE } from "./source-fields.js";
 
 const CONTENT_TYPES = ["movie", "book", "tv", "game"];
-const CONFIG_KEY = "config";
+const LEGACY_CONFIG_KEY = "config";
+const SYNC_CONFIG_KEY = "configSync";
+const LOCAL_CONFIG_KEY = "configLocal";
 
 function buildEmptyMapping(type) {
   return Object.keys(SOURCE_FIELDS_BY_TYPE[type] || {}).reduce((acc, key) => {
@@ -76,27 +78,85 @@ function normalizeConfig(raw = {}) {
   };
 }
 
+function extractSyncConfig(raw = {}) {
+  const normalized = normalizeConfig(raw);
+  return {
+    targets: normalized.targets,
+    options: normalized.options
+  };
+}
+
+function extractLocalConfig(raw = {}) {
+  const normalized = normalizeConfig(raw);
+  return {
+    notionToken: normalized.notionToken || ""
+  };
+}
+
+function mergeConfigParts(syncConfig = {}, localConfig = {}) {
+  return normalizeConfig({
+    ...extractSyncConfig(syncConfig),
+    ...extractLocalConfig(localConfig)
+  });
+}
+
+async function persistSplitConfig(config) {
+  const normalized = normalizeConfig(config);
+  await Promise.all([
+    chrome.storage.sync.set({
+      [SYNC_CONFIG_KEY]: extractSyncConfig(normalized)
+    }),
+    chrome.storage.local.set({
+      [LOCAL_CONFIG_KEY]: extractLocalConfig(normalized)
+    }),
+    chrome.storage.sync.remove([LEGACY_CONFIG_KEY]),
+    chrome.storage.local.remove([LEGACY_CONFIG_KEY])
+  ]);
+  return normalized;
+}
+
 export async function getConfig() {
-  const localResult = await chrome.storage.local.get([CONFIG_KEY]);
-  if (localResult?.[CONFIG_KEY]) {
-    return normalizeConfig(localResult[CONFIG_KEY]);
+  const [localResult, syncResult] = await Promise.all([
+    chrome.storage.local.get([LOCAL_CONFIG_KEY, LEGACY_CONFIG_KEY]),
+    chrome.storage.sync.get([SYNC_CONFIG_KEY, LEGACY_CONFIG_KEY])
+  ]);
+
+  let localConfig = localResult?.[LOCAL_CONFIG_KEY] || null;
+  let syncConfig = syncResult?.[SYNC_CONFIG_KEY] || null;
+
+  const legacyLocal = localResult?.[LEGACY_CONFIG_KEY];
+  if (legacyLocal) {
+    const migrated = normalizeConfig(legacyLocal);
+    if (!localConfig) {
+      localConfig = extractLocalConfig(migrated);
+      await chrome.storage.local.set({ [LOCAL_CONFIG_KEY]: localConfig });
+    }
+    if (!syncConfig) {
+      syncConfig = extractSyncConfig(migrated);
+      await chrome.storage.sync.set({ [SYNC_CONFIG_KEY]: syncConfig });
+    }
+    await chrome.storage.local.remove([LEGACY_CONFIG_KEY]);
   }
 
-  // One-time migration path: move existing sync config into local storage.
-  const syncResult = await chrome.storage.sync.get([CONFIG_KEY]);
-  if (syncResult?.[CONFIG_KEY]) {
-    const migrated = normalizeConfig(syncResult[CONFIG_KEY]);
-    await chrome.storage.local.set({ [CONFIG_KEY]: migrated });
-    return migrated;
+  const legacySync = syncResult?.[LEGACY_CONFIG_KEY];
+  if (legacySync) {
+    const migrated = normalizeConfig(legacySync);
+    if (!syncConfig) {
+      syncConfig = extractSyncConfig(migrated);
+      await chrome.storage.sync.set({ [SYNC_CONFIG_KEY]: syncConfig });
+    }
+    if (!localConfig) {
+      localConfig = extractLocalConfig(migrated);
+      await chrome.storage.local.set({ [LOCAL_CONFIG_KEY]: localConfig });
+    }
+    await chrome.storage.sync.remove([LEGACY_CONFIG_KEY]);
   }
 
-  return normalizeConfig({});
+  return mergeConfigParts(syncConfig || {}, localConfig || {});
 }
 
 export async function saveConfig(config) {
-  await chrome.storage.local.set({
-    [CONFIG_KEY]: normalizeConfig(config)
-  });
+  await persistSplitConfig(config);
 }
 
 export { DEFAULT_CONFIG, SOURCE_FIELDS_BY_TYPE, CONTENT_TYPES };

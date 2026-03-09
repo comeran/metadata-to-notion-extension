@@ -1,5 +1,7 @@
 # Metadata to Notion (Browser Extension)
 
+中文说明请见: [README.zh-CN.md](./README.zh-CN.md)
+
 A Manifest V3 browser extension to import metadata from:
 - Douban movie / book pages
 - TMDB TV pages
@@ -29,8 +31,8 @@ into Notion databases with configurable field mapping.
 
 ## Storage and security
 
-- Configuration (including Notion token) is stored in `chrome.storage.local` (device-local), not sync storage.
-- Database schema cache is stored in `chrome.storage.local` with TTL for faster mapping UI.
+- Syncable configuration (`databaseId`, field mapping, enabled state, import options) is stored in `chrome.storage.sync`.
+- Notion token, schema cache, and temporary scan state are stored in `chrome.storage.local`.
 
 ## Package for release
 

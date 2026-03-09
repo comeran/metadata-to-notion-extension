@@ -17,8 +17,14 @@ Metadata to Notion is a browser extension that helps users import metadata from 
 
 ## Where data is stored
 
-- Extension configuration is stored in `chrome.storage.local` on the user's device.
-- Database schema cache is stored in `chrome.storage.local` for faster mapping.
+- Syncable configuration is stored in `chrome.storage.sync`:
+  - Notion database IDs
+  - Field mapping settings
+  - Import options
+- Device-local configuration is stored in `chrome.storage.local`:
+  - Notion integration token
+  - Database schema cache
+  - Temporary scan state
 
 ## Where data is sent
 
