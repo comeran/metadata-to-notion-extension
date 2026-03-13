@@ -16,6 +16,16 @@ function asText(value) {
   return String(value).trim();
 }
 
+function getFirstMeaningfulItem(values) {
+  if (!Array.isArray(values)) return values;
+  for (const value of values) {
+    if (value === undefined || value === null) continue;
+    const text = String(value).trim();
+    if (text) return text;
+  }
+  return "";
+}
+
 function buildTitleProperty(value) {
   const text = asText(value);
   if (!text) return null;
@@ -45,7 +55,7 @@ function buildUrlProperty(value) {
 }
 
 function buildSelectProperty(value) {
-  const text = asText(value);
+  const text = asText(Array.isArray(value) ? getFirstMeaningfulItem(value) : value);
   if (!text) return null;
   return { select: { name: text.slice(0, 100) } };
 }
@@ -277,13 +287,24 @@ async function buildMappedProperties(config, metadata, target, selectedFields = 
     const type = propertyDef.type;
     const hasOverride = Object.prototype.hasOwnProperty.call(overrides, sourceField);
     const value = hasOverride ? overrides[sourceField] : getSourceFieldValue(metadata, sourceField);
-    if (!hasMeaningfulValue(value) && sourceField !== "cover") {
+    let propertyValue = value;
+    if (type === "select" && Array.isArray(value)) {
+      const items = normalizeArray(value);
+      propertyValue = getFirstMeaningfulItem(items);
+      if (items.length > 1) {
+        warnings.push(`Field ${notionFieldName} is select; used first value only: ${propertyValue}`);
+      }
+    }
+
+    if (!hasMeaningfulValue(propertyValue) && sourceField !== "cover") {
       continue;
     }
 
-    const built = buildPropertyValue(type, value, { fileObject: sourceField === "cover" ? coverFileObject : null });
+    const built = buildPropertyValue(type, propertyValue, {
+      fileObject: sourceField === "cover" ? coverFileObject : null
+    });
     if (!built) {
-      if (sourceField === "cover" || hasMeaningfulValue(value)) {
+      if (sourceField === "cover" || hasMeaningfulValue(propertyValue)) {
         warnings.push(`Skipped field ${notionFieldName} (${type})`);
       }
       continue;
@@ -294,7 +315,7 @@ async function buildMappedProperties(config, metadata, target, selectedFields = 
       sourceField,
       notionField: notionFieldName,
       notionType: type,
-      value: summarizeValue(value)
+      value: summarizeValue(propertyValue)
     });
   }
 
